@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected Transform firePos;
     [SerializeField] protected float SpeedFire = 0.2f;
     [SerializeField] protected float bulletForce = 5f;
+    [SerializeField] protected float damage = 1f;
     [SerializeField] protected GameObject muzzle;
     
     
@@ -45,6 +46,7 @@ public class Weapon : MonoBehaviour
         GameObject bulletInstantiate = Instantiate(this.bullet, firePos.position, Quaternion.identity);
         GameObject muzzleInstantiate = Instantiate(this.muzzle, firePos.position, transform.rotation, transform);
         Rigidbody2D rb = bulletInstantiate.GetComponent<Rigidbody2D>();
+        bulletInstantiate.GetComponent<DamageSender>().SetDamage(damage);
         rb.AddForce(transform.right*bulletForce,ForceMode2D.Impulse);
         
         Destroy(bulletInstantiate,2f);

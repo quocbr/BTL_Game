@@ -37,7 +37,7 @@ public class PlayerHealth : MonoBehaviour
 
     protected void Death()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     protected void falling()

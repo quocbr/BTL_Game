@@ -10,6 +10,7 @@ public class Move : MonoBehaviour
     [SerializeField] protected Transform attackPoint;
     [SerializeField] private Animator animator;
     [SerializeField] protected bool canMove = true;
+    [SerializeField] protected int damage = 1;
 
     [SerializeField] protected LayerMask playerLayer;
     [SerializeField] protected float attackRange = 1f;
@@ -71,7 +72,7 @@ public class Move : MonoBehaviour
                 Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayer);
                 foreach (Collider2D player in hitPlayer)
                 {
-                    Debug.Log("hit" + player.name);
+                    player.GetComponent<PlayerHealth>().TakeDamage(damage);
                 }
             }
         }
