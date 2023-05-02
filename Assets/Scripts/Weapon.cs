@@ -5,15 +5,25 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    private static Weapon _instance;
+
+    public static Weapon Instance
+    {
+        get => _instance;
+    }
     [SerializeField] protected GameObject bullet;
     [SerializeField] protected Transform firePos;
     [SerializeField] protected float SpeedFire = 0.2f;
-    [SerializeField] protected float bulletForce = 5f;
-    [SerializeField] protected float damage = 1f;
+    [SerializeField] protected float bulletForce = 6f;
+    [SerializeField] protected int damage = 1;
     [SerializeField] protected GameObject muzzle;
-    
-    
+
     private float speedFire;
+
+    protected void Awake()
+    {
+        Weapon._instance = this;
+    }
 
     protected void Start()
     {
@@ -39,7 +49,7 @@ public class Weapon : MonoBehaviour
         transform.eulerAngles = new Vector3(0, 0, angle);
         this.transform.localScale = new Vector3(Mathf.Sign(aimDir.x), Mathf.Sign(aimDir.x), 1);
     }
-    
+
     void FireBullet()
     {
         speedFire = SpeedFire;
@@ -47,9 +57,19 @@ public class Weapon : MonoBehaviour
         GameObject muzzleInstantiate = Instantiate(this.muzzle, firePos.position, transform.rotation, transform);
         Rigidbody2D rb = bulletInstantiate.GetComponent<Rigidbody2D>();
         bulletInstantiate.GetComponent<DamageSender>().SetDamage(damage);
-        rb.AddForce(transform.right*bulletForce,ForceMode2D.Impulse);
-        
-        Destroy(bulletInstantiate,2f);
-        Destroy(muzzleInstantiate,0.2f);
+        rb.AddForce(transform.right * bulletForce, ForceMode2D.Impulse);
+
+        Destroy(bulletInstantiate, 2f);
+        Destroy(muzzleInstantiate, 0.2f);
+    }
+
+    public void AddDamage(int dmg = 1)
+    {
+        this.damage += dmg;
+    }
+
+    public void AddSpeedFire(float sf = 5f)
+    {
+        this.SpeedFire -= (this.SpeedFire*sf/100f);
     }
 }

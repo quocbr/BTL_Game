@@ -7,6 +7,7 @@ public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] protected float hitPoint;
     [SerializeField] protected float maxHitPoint = 5f;
+    [SerializeField] protected int currentExp = 3;
     [SerializeField] protected GameObject Exp;
 
     private void Start()
@@ -19,7 +20,9 @@ public class EnemyBehaviour : MonoBehaviour
         if (IsDead() == true)
         {
             GameController.Instance.AddKillEnemy();
-            Instantiate(Exp, this.transform.position, Quaternion.identity);
+            GameObject exp = Instantiate(Exp, this.transform.position, Quaternion.identity);
+            int target = currentExp * (GameController.Instance.Level - 1) * 20 / 100;
+            exp.GetComponent<ExpSetting>().SetExp(currentExp + target);
             Destroy(this.gameObject);
         }
         

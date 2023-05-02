@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
     }
 
     [SerializeField] protected int countEnemyKill = 0;
-    [SerializeField] protected int Level = 1;
+    public int Level = 1;
 
     protected void Awake()
     {
@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     public void AddLevel(int count = 1)
     {
         Level += count;
+        UIManager.Instance.SetLevel(Level);
     }
     
 }

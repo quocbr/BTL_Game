@@ -7,12 +7,30 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] protected Image fillBar;
-    [SerializeField] protected TextMeshProUGUI valueText;
+    [SerializeField] protected Slider slider;
+    [SerializeField]protected Gradient gradient;
+    [SerializeField]protected Image fill;
 
-    public void UpdateBar(int currentValue, int maxValue)
+    public void SetMaxHealth(int health)
     {
-        fillBar.fillAmount = (float)currentValue/(float)maxValue;
-        valueText.text = currentValue.ToString()+"/"+maxValue.ToString();
+        slider.maxValue = health;
+        slider.value = health;
+
+        fill.color = gradient.Evaluate(1f);
+    }
+
+    public void AddMaxHealth(int health)
+    {
+        float temp = slider.maxValue;
+        slider.maxValue = health;
+        slider.value += slider.maxValue - temp;
+        
+        fill.color = gradient.Evaluate(slider.normalizedValue);
+    }
+    public void SetHeart(int health)
+    {
+        slider.value = health;
+
+        fill.color = gradient.Evaluate(slider.normalizedValue);
     }
 }

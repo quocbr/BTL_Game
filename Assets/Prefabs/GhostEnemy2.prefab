@@ -158,6 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoint: 0
   maxHitPoint: 5
+  currentExp: 5
   Exp: {fileID: 4772616941974128884, guid: fae52b3e2ce531448a3415bef41ae422, type: 3}
 --- !u!95 &2915179959159863249
 Animator:

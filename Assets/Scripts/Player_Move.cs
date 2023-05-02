@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class Player_Move : MonoBehaviour
 {
+    private static Player_Move _instance;
+
+    public static Player_Move Instance
+    {
+        get => _instance;
+    }
     [SerializeField] protected float moveSpeed = 5f;
     [SerializeField] protected Vector3 moveInput;
     [SerializeField] protected float rollBoots = 2f;
@@ -16,6 +22,11 @@ public class Player_Move : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
 
+    protected void Awake()
+    {
+        Player_Move._instance = this;
+    }
+    
     protected void Start()
     {
         this.animator = this.GetComponent<Animator>();
@@ -62,6 +73,11 @@ public class Player_Move : MonoBehaviour
 
         this.transform.localScale = new Vector3(Mathf.Sign(lookDir.x), 1, 1);
 
+    }
+
+    public void SetMoveSpeed(float sp = 10)
+    {
+        this.moveSpeed += (this.moveSpeed * sp / 100f);
     }
  
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ExpSetting : MonoBehaviour
 {
-    [SerializeField] protected float exp = 1f;
-    [SerializeField] protected float selfDestructTime = 5f; // Thời gian tự hủy (s)
+    [SerializeField] protected int exp = 1;
+    [SerializeField] protected int selfDestructTime = 5; // Thời gian tự hủy (s)
 
     void Start()
     {
@@ -17,12 +17,12 @@ public class ExpSetting : MonoBehaviour
         yield return new WaitForSeconds(selfDestructTime);
         Destroy(gameObject);
     }
-    public void SetExp(float _exp)
+    public void SetExp(int _exp)
     {
         exp = _exp;
     }
 
-    public float getExp()
+    public int getExp()
     {
         return exp;
     }
