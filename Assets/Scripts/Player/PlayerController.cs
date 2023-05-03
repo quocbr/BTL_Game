@@ -18,16 +18,32 @@ public class PlayerController : MonoBehaviour
 
     public void AddSkill(int damage,int health,float range,float moveSpeed,int giap,float speedFire,int gun)
     {
-        Weapon.Instance.AddDamage(damage);
+        
         PlayerHealth.Instance.Addhealth(health);
         Magnet.Instance.AddRange(range);
         Player_Move.Instance.SetMoveSpeed(moveSpeed);
         PlayerHealth.Instance.AddGiap(giap);
-        Weapon.Instance.AddSpeedFire(speedFire);
+
+        if (GunPre1.activeSelf == true)
+        {
+            SungLuc.Instance.AddDamage(damage);
+            SungLuc.Instance.AddSpeedFire(speedFire);
+        }
+        else if (GunPre2.activeSelf == true)
+        {
+            SungTruong.Instance.AddDamage(damage);
+            SungTruong.Instance.AddSpeedFire(speedFire);
+        }
+        else
+        {
+             ShotGun.Instance.AddDamage(damage);
+             ShotGun.Instance.AddSpeedFire(speedFire);
+        }
         this.Gun(gun);
     }
+    
 
-    private void SetActiveAllGun()
+    private void DeActiveAllGun()
     {
         GunPre1.SetActive(false);
         GunPre2.SetActive(false);
@@ -37,44 +53,42 @@ public class PlayerController : MonoBehaviour
     {
         if(gun == 0) return;
         
-        
-        
         if (gun == 1)
         {
             if (GunPre1.activeSelf == false)
             {
-                this.SetActiveAllGun();
+                this.DeActiveAllGun();
                 GunPre1.SetActive(true);
             }
             else
             {
-                Weapon.Instance.AddDamage(1);
-                Weapon.Instance.AddSpeedFire(5);
+                SungLuc.Instance.AddDamage(1);
+                SungLuc.Instance.AddSpeedFire(5);
             }   
         }else if (gun == 2)
         {
             if (GunPre2.activeSelf == false)
             {
-                this.SetActiveAllGun();
+                this.DeActiveAllGun();
                 GunPre2.SetActive(true);
             }
             else
             {
-                Weapon.Instance.AddDamage(1);
-                Weapon.Instance.AddSpeedFire(5);
+                SungTruong.Instance.AddDamage(1);
+                SungTruong.Instance.AddSpeedFire(5);
             }
         }
-        else
+        else if (gun == 3)
         {
             if (GunPre3.activeSelf == false)
             {
-                this.SetActiveAllGun();
+                this.DeActiveAllGun();
                 GunPre3.SetActive(true);
             }
             else
             {
-                Weapon.Instance.AddDamage(1);
-                Weapon.Instance.AddSpeedFire(5);
+                ShotGun.Instance.AddDamage(1);
+                ShotGun.Instance.AddSpeedFire(5);
             }   
         }
     }

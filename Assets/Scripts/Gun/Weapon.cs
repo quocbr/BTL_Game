@@ -6,12 +6,6 @@ using Random = UnityEngine.Random;
 
 public class Weapon : MonoBehaviour
 {
-    private static Weapon _instance;
-
-    public static Weapon Instance
-    {
-        get => _instance;
-    }
 
     [SerializeField] protected GameObject bullet;
     [SerializeField] protected Transform firePos;
@@ -23,11 +17,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected GameObject muzzle;
 
     protected float speedFire;
-
-    protected virtual void Awake()
-    {
-        Weapon._instance = this;
-    }
+    
 
     protected virtual void Start()
     {
@@ -76,7 +66,7 @@ public class Weapon : MonoBehaviour
 
     public virtual void AddSpeedFire(float sf = 5f)
     {
-        if(SpeedFire >= SpeedFireMax) return;
+        if(SpeedFire <= SpeedFireMax) return;
         this.SpeedFire -= (this.SpeedFire * sf / 100f);
     }
 }
