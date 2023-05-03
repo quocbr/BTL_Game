@@ -6,43 +6,50 @@ using Random = UnityEngine.Random;
 
 public class CardController : MonoBehaviour
 {
-   private static CardController _instance;
-   public static CardController Instance { get => _instance; }
+    private static CardController _instance;
 
-   [SerializeField] private Card[] AllSkills;
-   public Card[] chooseSkill;
+    public static CardController Instance
+    {
+        get => _instance;
+    }
 
-   private void OnDisable()
-   {
-      chooseSkill = GetRandomElements(3);
-   }
+    [SerializeField] private Card[] AllSkills;
+    public Card[] chooseSkill;
 
-   protected void Awake()
-   {
-      CardController._instance = this;
-      AllSkills = Resources.LoadAll<Card>("Skills");
-      chooseSkill = GetRandomElements(3);
-   }
-   
-   
-   private Card[] GetRandomElements(int count)
-   {
-      Card[] randomElements = new Card[count];
-      Card[] copyArray = (Card[])AllSkills.Clone();
+    protected void Awake()
+    {
+        CardController._instance = this;
+        if (AllSkills == null)
+        {
+            AllSkills = Resources.LoadAll<Card>("Skills");
+        } 
+        chooseSkill = GetRandomElements(3);
+    }
 
-      for (int i = 0; i < count; i++)
-      {
-         int randomIndex = Random.Range(0, copyArray.Length);
-         randomElements[i] = copyArray[randomIndex];
+    private void OnDisable()
+    {
+        chooseSkill = GetRandomElements(3);
+    }
 
-         // Loại bỏ phần tử đã chọn để không bị chọn lại
-         for (int j = randomIndex; j < copyArray.Length - 1; j++)
-         {
-            copyArray[j] = copyArray[j + 1];
-         }
+    private Card[] GetRandomElements(int count)
+    {
+        Card[] randomElements = new Card[count];
+        Card[] copyArray = (Card[]) AllSkills.Clone();
 
-         System.Array.Resize(ref copyArray, copyArray.Length - 1);
-      }
-      return randomElements;
-   }
+        for (int i = 0; i < count; i++)
+        {
+            int randomIndex = Random.Range(0, copyArray.Length);
+            randomElements[i] = copyArray[randomIndex];
+
+            // Loại bỏ phần tử đã chọn để không bị chọn lại
+            for (int j = randomIndex; j < copyArray.Length - 1; j++)
+            {
+                copyArray[j] = copyArray[j + 1];
+            }
+
+            System.Array.Resize(ref copyArray, copyArray.Length - 1);
+        }
+
+        return randomElements;
+    }
 }

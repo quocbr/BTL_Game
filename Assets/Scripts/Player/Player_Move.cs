@@ -12,6 +12,7 @@ public class Player_Move : MonoBehaviour
         get => _instance;
     }
     [SerializeField] protected float moveSpeed = 5f;
+    [SerializeField] protected float moveSpeedMax = 10f;
     [SerializeField] protected Vector3 moveInput;
     [SerializeField] protected float rollBoots = 2f;
     [SerializeField] protected float rollTimeDefault = 2f;
@@ -77,6 +78,7 @@ public class Player_Move : MonoBehaviour
 
     public void SetMoveSpeed(float sp = 10)
     {
+        if (moveSpeed >= moveSpeedMax) return;
         this.moveSpeed += (this.moveSpeed * sp / 100f);
     }
  

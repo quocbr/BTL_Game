@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Weapon : MonoBehaviour
 {
@@ -11,31 +12,34 @@ public class Weapon : MonoBehaviour
     {
         get => _instance;
     }
+
     [SerializeField] protected GameObject bullet;
     [SerializeField] protected Transform firePos;
     [SerializeField] protected float SpeedFire = 0.2f;
+    [SerializeField] protected float SpeedFireMax = 0.1f;
     [SerializeField] protected float bulletForce = 6f;
     [SerializeField] protected int damage = 1;
+    [SerializeField] protected int damageMax = 100;
     [SerializeField] protected GameObject muzzle;
 
-    private float speedFire;
+    protected float speedFire;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         Weapon._instance = this;
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         speedFire = SpeedFire;
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
         RotateGun();
 
         speedFire -= Time.deltaTime;
-        if (Input.GetMouseButton(0) && speedFire < 0)
+        if (speedFire < 0) //Input.GetMouseButton(0) &&
         {
             FireBullet();
         }
@@ -50,26 +54,29 @@ public class Weapon : MonoBehaviour
         this.transform.localScale = new Vector3(Mathf.Sign(aimDir.x), Mathf.Sign(aimDir.x), 1);
     }
 
-    void FireBullet()
+    protected virtual void FireBullet()
     {
         speedFire = SpeedFire;
+
         GameObject bulletInstantiate = Instantiate(this.bullet, firePos.position, Quaternion.identity);
-        GameObject muzzleInstantiate = Instantiate(this.muzzle, firePos.position, transform.rotation, transform);
         Rigidbody2D rb = bulletInstantiate.GetComponent<Rigidbody2D>();
         bulletInstantiate.GetComponent<DamageSender>().SetDamage(damage);
         rb.AddForce(transform.right * bulletForce, ForceMode2D.Impulse);
-
         Destroy(bulletInstantiate, 2f);
+        GameObject muzzleInstantiate = Instantiate(this.muzzle, firePos.position, transform.rotation, transform);
+
         Destroy(muzzleInstantiate, 0.2f);
     }
 
-    public void AddDamage(int dmg = 1)
+    public virtual void AddDamage(int dmg = 1)
     {
+        if (damageMax <= damage) return;
         this.damage += dmg;
     }
 
-    public void AddSpeedFire(float sf = 5f)
+    public virtual void AddSpeedFire(float sf = 5f)
     {
-        this.SpeedFire -= (this.SpeedFire*sf/100f);
+        if(SpeedFire >= SpeedFireMax) return;
+        this.SpeedFire -= (this.SpeedFire * sf / 100f);
     }
 }

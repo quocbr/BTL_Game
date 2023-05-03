@@ -21,6 +21,7 @@ public class PlayerLevel : MonoBehaviour
         currentExp = 0;
         expMax = expMax + (int)(expMax*30f/100f);
         expBar.SetMaxExp(expMax);
+        
         UIManager.Instance.SetActivePanelLevelUp(true);
         GameController.Instance.AddLevel();
     }

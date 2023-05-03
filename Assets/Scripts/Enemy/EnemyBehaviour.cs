@@ -19,14 +19,15 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (IsDead() == true)
         {
-            GameController.Instance.AddKillEnemy();
-            GameObject exp = Instantiate(Exp, this.transform.position, Quaternion.identity);
-            int target = currentExp * (GameController.Instance.Level - 1) * 20 / 100;
-            exp.GetComponent<ExpSetting>().SetExp(currentExp + target);
-            Destroy(this.gameObject);
+             GameObject exp = Instantiate(Exp, this.transform.position, Quaternion.identity);
+                    int target = currentExp * (GameController.Instance.Level - 1) * 20 / 100;
+                    exp.GetComponent<ExpSetting>().SetExp(currentExp + target);
+                    GameController.Instance.AddKillEnemy(1);
+                    Destroy(this.gameObject);
         }
         
     }
+    
 
     public void DeHealth(float damage)
     {

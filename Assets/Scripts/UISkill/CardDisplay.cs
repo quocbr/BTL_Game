@@ -30,7 +30,7 @@ public class CardDisplay : MonoBehaviour
 
     public void Active()
     {
-        PlayerController.Instance.AddSkill(card.attack,card.health,card.range,card.speed,card.shield,card.speedAttack);
+        PlayerController.Instance.AddSkill(card.attack,card.health,card.range,card.speed,card.shield,card.speedAttack, card.Gun);
         UIManager.Instance.SetActivePanelLevelUp(false);
     }
 }

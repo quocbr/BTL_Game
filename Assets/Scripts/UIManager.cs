@@ -9,8 +9,9 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get => _instance; }
     
     [SerializeField] protected GameObject panelLevelUp;
-    [SerializeField] protected Animator animator;
+    [SerializeField] protected GameObject panelPause;
     [SerializeField] protected Text level;
+    [SerializeField] protected Text countEnemy;
     protected void Awake()
     {
         UIManager._instance = this;
@@ -21,19 +22,34 @@ public class UIManager : MonoBehaviour
         
         if (enabled)
         {
-            Time.timeScale = 0f; // Tạm dừng trò chơi
-            animator.enabled = true;
+            GameController.Instance.PauseGame();
         }
         else
         {
-            Time.timeScale = 1f; // Tiếp tục trò chơi
-            animator.enabled = false;
+            GameController.Instance.ContinueGame();
         }
         panelLevelUp.SetActive(enabled);
+    }
+
+    public void SetActivePanelPause()
+    {
+        GameController.Instance.PauseGame();
+        panelPause.SetActive(true);
+    }
+
+    public void DeActivePanelPause()
+    {
+        GameController.Instance.ContinueGame();
+        panelPause.SetActive(false);
     }
 
     public void SetLevel(int lv)
     {
         level.text = "LV: " + lv.ToString();
+    }
+    
+    public void SetEnemy(int enemy)
+    {
+        countEnemy.text = enemy.ToString();
     }
 }

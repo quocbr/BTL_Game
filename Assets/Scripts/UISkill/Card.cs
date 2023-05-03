@@ -16,5 +16,6 @@ public class Card : ScriptableObject
      public float speed;
     public int shield;
     public float speedAttack;
+    public int Gun;
 
 }

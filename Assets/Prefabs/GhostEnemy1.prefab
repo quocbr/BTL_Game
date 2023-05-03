@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 122879024613452054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.126, y: 0.059, z: 0}
+  m_LocalPosition: {x: 0.011, y: 0.013, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -90,7 +90,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  attackRange: 0.73
+  attackRange: 0.52
   coldDownTime: 0.7
 --- !u!114 &820549521855910178
 MonoBehaviour:
@@ -106,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoint: 0
   maxHitPoint: 5
+  currentExp: 3
   Exp: {fileID: 4772616941974128884, guid: fae52b3e2ce531448a3415bef41ae422, type: 3}
 --- !u!212 &820549521855910193
 SpriteRenderer:
@@ -214,7 +215,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04474759, y: 0.06763852}
+  m_Offset: {x: -0.03, y: 0.03}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -225,5 +226,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6955476, y: 1.4028313}
+  m_Size: {x: 0.43594265, y: 0.91416216}
   m_EdgeRadius: 0
