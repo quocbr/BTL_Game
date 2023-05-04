@@ -5,6 +5,7 @@ using UnityEngine;
 public class SungTruong : Weapon
 {
     private static SungTruong _instance;
+    private Weapon _weaponImplementation;
 
     public static SungTruong Instance
     {
@@ -14,5 +15,10 @@ public class SungTruong : Weapon
     protected virtual void Awake()
     {
         SungTruong._instance = this;
+    }
+
+    public override void SoundHit()
+    {
+        SoundManager.Instance.OnPlaySound(SoundType.sungtruong);
     }
 }

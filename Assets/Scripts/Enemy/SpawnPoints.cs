@@ -6,12 +6,23 @@ using Random = UnityEngine.Random;
 
 public class SpawnPoints : MonoBehaviour
 {
+    private static SpawnPoints _instance;
+
+    public static SpawnPoints Instance
+    {
+        get => _instance;
+    }
     [SerializeField] protected GameObject Camera;
-    [SerializeField] protected float spawnerRate = 1.5f;
+    public float spawnerRate = 1.5f;
     [SerializeField] protected int numberEnemy = 3;
     [SerializeField] protected List<Transform> points;
     [SerializeField] protected GameObject[] enemyPre;
 
+    protected void Awake()
+    {
+        SpawnPoints._instance = this;
+    }
+    
     void Start()
     {
         Camera = GameObject.FindWithTag("MainCamera");
@@ -22,6 +33,7 @@ public class SpawnPoints : MonoBehaviour
     {
         if (Camera == null) return;
         this.transform.position = new Vector3(Camera.transform.position.x, Camera.transform.position.y, 0);
+        
     }
 
     IEnumerator Spawner()

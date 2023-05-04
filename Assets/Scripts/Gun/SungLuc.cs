@@ -5,6 +5,7 @@ using UnityEngine;
 public class SungLuc : Weapon
 {
     private static SungLuc _instance;
+    private Weapon _weaponImplementation;
 
     public static SungLuc Instance
     {
@@ -14,5 +15,10 @@ public class SungLuc : Weapon
     protected virtual void Awake()
     {
         SungLuc._instance = this;
+    }
+
+    public override void SoundHit()
+    {
+        SoundManager.Instance.OnPlaySound(SoundType.sungluc);
     }
 }

@@ -30,6 +30,7 @@ public class CardDisplay : MonoBehaviour
 
     public void Active()
     {
+        SoundManager.Instance.OnPlaySound(SoundType.choose);
         PlayerController.Instance.AddSkill(card.attack,card.health,card.range,card.speed,card.shield,card.speedAttack,card.Gun);
         UIManager.Instance.SetActivePanelLevelUp(false);
     }

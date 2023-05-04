@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -9,7 +10,9 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get => _instance; }
     
     [SerializeField] protected GameObject panelLevelUp;
-    [SerializeField] protected GameObject panelPause;
+    [SerializeField] protected GameObject pannelGameOvel;
+    [SerializeField] protected GameObject pannelSetting;
+    public GameObject panelPause;
     [SerializeField] protected Text level;
     [SerializeField] protected Text countEnemy;
     protected void Awake()
@@ -22,10 +25,12 @@ public class UIManager : MonoBehaviour
         
         if (enabled)
         {
+            MusicManager.Instance.SetMusic(true);
             GameController.Instance.PauseGame();
         }
         else
         {
+            MusicManager.Instance.SetMusic(false);
             GameController.Instance.ContinueGame();
         }
         panelLevelUp.SetActive(enabled);
@@ -41,6 +46,30 @@ public class UIManager : MonoBehaviour
     {
         GameController.Instance.ContinueGame();
         panelPause.SetActive(false);
+    } 
+    public void SetActivePanelGameOver()
+    {
+        MusicManager.Instance.OnPlayMusic(MusicType.GameOver);
+        GameController.Instance.PauseGame();
+        pannelGameOvel.SetActive(true);
+    }
+
+    public void DeActivePanelGameOver()
+    {
+        GameController.Instance.ResetScene();
+        pannelGameOvel.SetActive(false);
+        SceneManager.LoadScene("Menu");
+    }
+    
+    public void SetActivePanelSetting()
+    {
+        GameController.Instance.PauseGame();
+        pannelSetting.SetActive(true);
+    }
+
+    public void DeActivePanelSetting()
+    {
+        pannelSetting.SetActive(false);
     }
 
     public void SetLevel(int lv)

@@ -35,6 +35,8 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth < 0)
         {
             currentHealth = 0;
+            SoundManager.Instance.OnPlaySound(SoundType.playerdead);
+            UIManager.Instance.SetActivePanelGameOver();
         }
         healthBar.SetHeart(currentHealth);
     }

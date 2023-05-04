@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
 
     [SerializeField] protected GameObject bullet;
@@ -32,9 +32,12 @@ public class Weapon : MonoBehaviour
         if (speedFire < 0) //Input.GetMouseButton(0) &&
         {
             FireBullet();
+            this.SoundHit();
         }
     }
 
+    public abstract void SoundHit();
+    
     protected virtual void RotateGun()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
