@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
         get => mainCamera;
     }
 
-    [SerializeField] protected int countEnemyKill = 0;
+    public int countEnemyKill = 0;
     public int Level = 1;
 
     protected void Awake()

@@ -5,9 +5,20 @@ using UnityEngine.UI;
 
 public class Watch : MonoBehaviour
 {
+    private static Watch _instance;
+
+    public static Watch Instance
+    {
+        get => _instance;
+    }
     public Text stopwatchText;
     private float elapsedTime;
 
+    protected void Awake()
+    {
+        Watch._instance = this;
+    }
+    
     private void Start()
     {
         stopwatchText.text = "00:00";

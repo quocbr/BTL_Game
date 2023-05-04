@@ -52,4 +52,20 @@ public class PlayerHealth : MonoBehaviour
         if (h == 0) return;
         healthBar.AddMaxHealth(maxHealth);
     }
+
+    public int GetHeathLost()
+    {
+        return maxHealth - currentHealth;
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Hp"))
+        {
+            currentHealth += other.gameObject.GetComponent<HpSetting>().getHp();
+            if (true) ;
+            healthBar.SetHeart(currentHealth);
+            Destroy(other.gameObject);
+        }
+    }
 }
