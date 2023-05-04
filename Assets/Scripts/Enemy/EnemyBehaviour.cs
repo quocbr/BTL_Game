@@ -11,6 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] protected int currentExp = 3;
     [SerializeField] protected GameObject Exp;
     [SerializeField] protected GameObject Hp;
+    [SerializeField] protected GameObject fxDead;
 
     private void Start()
     {
@@ -33,11 +34,13 @@ public class EnemyBehaviour : MonoBehaviour
                 int target1 = (PlayerHealth.Instance.GetHeathLost() * 10) / 100;
                 hp.GetComponent<HpSetting>().SetHp(target);
             }
+            
+            FXManager.Instance.GetFXEnemy(this.transform.position);
+            
             GameController.Instance.AddKillEnemy(1);
             Destroy(this.gameObject);
         }
     }
-
 
     public void DeHealth(float damage)
     {

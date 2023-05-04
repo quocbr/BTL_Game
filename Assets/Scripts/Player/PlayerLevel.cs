@@ -17,13 +17,14 @@ public class PlayerLevel : MonoBehaviour
     private void Update()
     {
         if(currentExp < expMax) return;
-
+        FXManager.Instance.GetFXLevelUp(this.transform.position);
+        
         currentExp = 0;
         expMax = expMax + (int)(expMax*30f/100f);
         expBar.SetMaxExp(expMax);
         
-        UIManager.Instance.SetActivePanelLevelUp(true);
         GameController.Instance.AddLevel();
+        UIManager.Instance.SetActivePanelLevelUp(true);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

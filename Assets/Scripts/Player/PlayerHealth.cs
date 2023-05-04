@@ -63,7 +63,10 @@ public class PlayerHealth : MonoBehaviour
         if (other.gameObject.CompareTag("Hp"))
         {
             currentHealth += other.gameObject.GetComponent<HpSetting>().getHp();
-            if (true) ;
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
             healthBar.SetHeart(currentHealth);
             Destroy(other.gameObject);
         }
