@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DamageSender : IDamageSender
 {
@@ -11,6 +12,7 @@ public class DamageSender : IDamageSender
         base.OnTriggerEnter2D(other);
         if (other.gameObject.CompareTag("Enemy"))
         {
+            FXManager.Instance.GetFXHit(this.transform.position);
             other.gameObject.GetComponent<EnemyBehaviour>().DeHealth(damage);
             Destroy(this.gameObject);
         }

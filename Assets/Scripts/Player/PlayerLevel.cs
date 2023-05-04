@@ -5,16 +5,26 @@ using UnityEngine;
 
 public class PlayerLevel : MonoBehaviour
 {
-    [SerializeField] protected float expMax = 100;
-    [SerializeField] protected float currentExp = 0;
-
+    [SerializeField] protected int expMax = 100;
+    [SerializeField] protected int currentExp = 0;
+    [SerializeField] protected ExpBar expBar;
+    
+    void Start()
+    {
+        currentExp = 0;
+        expBar.SetMaxExp(expMax);
+    }
     private void Update()
     {
         if(currentExp < expMax) return;
-
-        currentExp = 0f;
+        FXManager.Instance.GetFXLevelUp(this.transform.position);
+        
+        currentExp = 0;
         expMax = expMax + (int)(expMax*30f/100f);
+        expBar.SetMaxExp(expMax);
+        
         GameController.Instance.AddLevel();
+        UIManager.Instance.SetActivePanelLevelUp(true);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -22,6 +32,7 @@ public class PlayerLevel : MonoBehaviour
         if (other.gameObject.CompareTag("Exp"))
         {
             currentExp += other.gameObject.GetComponent<ExpSetting>().getExp();
+            expBar.SetExp(currentExp);
             Destroy(other.gameObject);
         }
     }

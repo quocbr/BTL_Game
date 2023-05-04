@@ -7,10 +7,21 @@ using UnityEngine;
 
 public class Magnet : MonoBehaviour
 {
+    private static Magnet _instance;
+
+    public static Magnet Instance
+    {
+        get => _instance;
+    }
     [SerializeField] protected LayerMask expLayer;
     [SerializeField] protected float range;
     [SerializeField] protected float moveSpeed;
 
+    protected void Awake()
+    {
+        Magnet._instance = this;
+    }
+    
     private void Update()
     {
         TheHandle();
@@ -36,5 +47,10 @@ public class Magnet : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position,range);
+    }
+
+    public void AddRange(float r = 0.1f)
+    {
+        this.range += r;
     }
 }
