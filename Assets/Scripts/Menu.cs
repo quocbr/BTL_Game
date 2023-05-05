@@ -12,7 +12,7 @@ public class Menu : MonoBehaviour
     
     public void ChuyenCredit()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Credit");
     }
 
     public void QuitGame()

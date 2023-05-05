@@ -33,5 +33,6 @@ public class Watch : MonoBehaviour
 
         string timerString = string.Format("{0:00}:{1:00}", minutes, seconds);
         stopwatchText.text = timerString;
+        UIManager.Instance.SetTime(timerString);
     }
 }

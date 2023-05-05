@@ -85,4 +85,9 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(currentScene.name);
         Time.timeScale = 1f;
     }
+
+    public void SetFullScreen(bool fullScreen)
+    {
+        Screen.fullScreen = fullScreen;
+    }
 }
