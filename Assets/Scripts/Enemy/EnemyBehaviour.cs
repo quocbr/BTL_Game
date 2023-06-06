@@ -31,7 +31,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 GameObject hp = Instantiate(Hp, this.transform.position + new Vector3(0.3f, 0.2f, 0),
                     Quaternion.identity);
-                int target1 = (PlayerHealth.Instance.GetHeathLost() * 10) / 100;
+                float target1 = (PlayerHealth.Instance.GetHeathLost() * 10f) / 100f;
                 hp.GetComponent<HpSetting>().SetHp(target);
             }
             

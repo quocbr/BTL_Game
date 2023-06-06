@@ -12,8 +12,8 @@ public class PlayerHealth : MonoBehaviour
     {
         get => _instance;
     }
-    [SerializeField] protected int maxHealth = 100;
-    [SerializeField] protected int currentHealth;
+    [SerializeField] protected float maxHealth = 100;
+    [SerializeField] protected float currentHealth;
     [SerializeField] protected HealthBar healthBar;
     [SerializeField] protected int giap = 1;
     
@@ -30,8 +30,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        damage -= giap;
-        currentHealth -= damage;
+        currentHealth -= ArmorPercent(damage);
         if (currentHealth < 0)
         {
             currentHealth = 0;
@@ -39,6 +38,13 @@ public class PlayerHealth : MonoBehaviour
             UIManager.Instance.SetActivePanelGameOver();
         }
         healthBar.SetHeart(currentHealth);
+    }
+
+    public float ArmorPercent(int damage)
+    {
+        float y = (((6 * giap)* 1f / ((giap + 5) *1f)))/10f;
+        float takeDamage = damage*1f - damage*1f * y;
+        return takeDamage;
     }
 
     public void AddGiap(int g)
@@ -53,7 +59,7 @@ public class PlayerHealth : MonoBehaviour
         healthBar.AddMaxHealth(maxHealth);
     }
 
-    public int GetHeathLost()
+    public float GetHeathLost()
     {
         return maxHealth - currentHealth;
     }

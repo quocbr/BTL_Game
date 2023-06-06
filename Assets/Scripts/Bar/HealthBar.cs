@@ -11,7 +11,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField]protected Gradient gradient;
     [SerializeField]protected Image fill;
 
-    public void SetMaxHealth(int health)
+    public void SetMaxHealth(float health)
     {
         slider.maxValue = health;
         slider.value = health;
@@ -19,7 +19,7 @@ public class HealthBar : MonoBehaviour
         fill.color = gradient.Evaluate(1f);
     }
 
-    public void AddMaxHealth(int health)
+    public void AddMaxHealth(float health)
     {
         float temp = slider.maxValue;
         slider.maxValue = health;
@@ -27,7 +27,7 @@ public class HealthBar : MonoBehaviour
         
         fill.color = gradient.Evaluate(slider.normalizedValue);
     }
-    public void SetHeart(int health)
+    public void SetHeart(float health)
     {
         slider.value = health;
 

@@ -14,6 +14,7 @@ public class Player_Move : MonoBehaviour
     [SerializeField] protected float moveSpeed = 5f;
     [SerializeField] protected float moveSpeedMax = 10f;
     [SerializeField] protected Vector3 moveInput;
+    [SerializeField] protected FixedJoystick _joystick;
     [SerializeField] protected float rollBoots = 2f;
     [SerializeField] protected float rollTimeDefault = 2f;
     [SerializeField] protected bool rollOnce = false;
@@ -36,8 +37,11 @@ public class Player_Move : MonoBehaviour
     protected void Update()
     {
         //Lay input
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
+        //moveInput.x = Input.GetAxisRaw("Horizontal");
+        //moveInput.y = Input.GetAxisRaw("Vertical");        
+        
+        moveInput.x = _joystick.Horizontal;
+        moveInput.y = _joystick.Vertical;
         
         this.animator.SetFloat("Speed", moveInput.sqrMagnitude);
 
@@ -60,7 +64,7 @@ public class Player_Move : MonoBehaviour
             rollTime -= Time.deltaTime;
         }
         
-        Turning();
+        //Turning();
 
         transform.position += moveInput * moveSpeed * Time.deltaTime;
     }

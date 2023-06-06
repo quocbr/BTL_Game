@@ -12,6 +12,11 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected float SpeedFire = 0.2f;
     [SerializeField] protected float SpeedFireMax = 0.1f;
     [SerializeField] protected float bulletForce = 6f;
+    
+    [SerializeField] protected Vector2 range;
+    [SerializeField] protected LayerMask enemyLayer;
+    [SerializeField] private GameObject _player;
+    
     [SerializeField] protected int damage = 1;
     [SerializeField] protected int damageMax = 100;
     [SerializeField] protected GameObject muzzle;
@@ -38,13 +43,61 @@ public abstract class Weapon : MonoBehaviour
 
     public abstract void SoundHit();
     
+    //Move to mouse
+    // protected virtual void RotateGun()
+    // {
+    //     Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //     Vector3 aimDir = (mousePos - this.transform.position).normalized;
+    //     float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
+    //     transform.eulerAngles = new Vector3(0, 0, angle);
+    //     this.transform.localScale = new Vector3(Mathf.Sign(aimDir.x), Mathf.Sign(aimDir.x), 1);
+    // }
+    
     protected virtual void RotateGun()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Collider2D ePos = FindNearestEnemy();
+        
+        if(ePos == null) return;
+        
+        Vector3 mousePos = ePos.transform.position;
+
         Vector3 aimDir = (mousePos - this.transform.position).normalized;
         float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
         transform.eulerAngles = new Vector3(0, 0, angle);
+        
+        _player.transform.localScale = new Vector3(Mathf.Sign(aimDir.x), 1, 1);
         this.transform.localScale = new Vector3(Mathf.Sign(aimDir.x), Mathf.Sign(aimDir.x), 1);
+    }
+    
+    private Collider2D FindNearestEnemy()
+    {
+        Collider2D nearestEnemy = null;
+        float nearestDistance = Mathf.Infinity;
+        Vector3 currentPosition = _player.transform.position;
+
+        Collider2D[] enemies = Physics2D.OverlapBoxAll(_player.transform.position, range,0.2f, enemyLayer);
+        if (enemies != null && enemies.Length > 0)
+        {
+
+            foreach (Collider2D enemy in enemies)
+            {
+                Debug.Log(enemy.name);
+                float distance = Vector3.Distance(currentPosition, enemy.transform.position);
+
+                if (distance < nearestDistance)
+                {
+                    nearestEnemy = enemy;
+                    nearestDistance = distance;
+                }
+            }
+        }
+
+        return nearestEnemy;
+    }
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(_player.transform.position,range);
     }
 
     protected virtual void FireBullet()
